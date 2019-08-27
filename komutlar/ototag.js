@@ -2,34 +2,46 @@ const Discord = require('discord.js');
 const db = require('quick.db');
 
 exports.run = async (client, message, args) => {
+  
+  if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`Bu komutu kullanabilmek için "\`Yönetici\`" yetkisine sahip olmalısın.`);
+  
   let tag = args[0];
-  let kanal = message.mentions.channels.first();
+ let tagk = message.mentions.channels.first()
+  let tagg = db.fetch(`tag_${message.guild.id}`)
+  let taggk = db.fetch(`tagKanal_${message.guild.id}`)
+  const nitro2019 = client.emojis.get('603984148926824586');
+  if (!tag) return message.channel.send('Bir tag girmelisin.')
+  
+    if(args[0] === "sıfırla") {
+    if(!tagg) {
+      message.channel.send(`Ayarlanmayan şeyi sıfırlayamazsın.`)
+      return
+    }
+    db.delete(`tagKanal_${message.guild.id}`)
+    db.delete(`tag_${message.guild.id}`)
+    message.channel.send(`Tag başarıyla sıfırlandı.`)
+    return
+  }
+  db.set(`tagKanal_${message.guild.id}`, tagk.id)
+  db.set(`tag_${message.guild.id}`, tag)
+  /*const embed = new Discord.RichEmbed()
+  .setColor("RANDOM")
+  .setAuthor("Tag Başarıyla Ayarlandı!")
+  .addField("Ayarlanan Tag", `${tag}`)
+  .addField("Ayarlanan Tag Kanalı", `${tagk}`)*/
+  message.channel.send(`${nitro2019} Tag başarıyla \`${tag}\`, tag kanalı ${tagk} olarak ayarlandı.`)
+  }
 
-  if (!tag) return message.channel.send(` Ototag'ı ayarlamak için bir tag **yazmalısın!**`)
-  if (!kanal) return message.channel.send(` Ototag'ı ayarlamak için bir kanal **etiketlemelisin!**`)
-  
-  if (db.has(`tag_${message.guild.id}.tag`) === true) {
-  db.set(`tag_${message.guild.id}.tag`, tag)
-  db.set(`tag_${message.guild.id}.kanal`, kanal.id)
-  
-  message.channel.send(`Ototag ${tag}, kanalı ${kanal} olarak **değiştirildi!**`)
-  }
-  if (db.has(`tag_${message.guild.id}.tag`) === false) {
-  db.set(`tag_${message.guild.id}.tag`, tag)
-  db.set(`tag_${message.guild.id}.kanal`, kanal.id)
-  
-  message.channel.send(` Ototag ${tag}, kanalı ${kanal} olarak **ayarlandı!**`)
-  }
-}
 exports.conf = {
-  guildOnly : true,
-  enabled : true,
-  aliases : [],
-  permLvl : 3,
-  kategori : 'ayarlar'
-}
+  enabled: true,
+  guildOnly: true,
+  aliases: [],
+  permLevel: 0,
+  kategori : "Yetkili"
+};
+
 exports.help = {
-  name : "ototag-ayarla",
-  description : "Ototag sisteminin tagını ve kanalını ayarlar.",
-  usage : "ototag-ayarla tag #kanal"
-}
+  name: 'tag',
+  description: 'Sunucuya katılan kişiye ayarlanan tagı vererek kullanıcının ismini sunucu için değiştirir.',
+  usage: 'tag yazı #kanal'
+};

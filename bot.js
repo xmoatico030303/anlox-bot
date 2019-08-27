@@ -629,15 +629,16 @@ client.on("message", async msg => {
     }
 })
 
-client.on('guildMemberAdd', async member => {
-  if (db.has(`tag_${member.guild.id}.tag`) === false) return;
-  let tag = await db.fetch(`tag_${member.guild.id}.tag`)
-  let kanal = await db.fetch(`tag_${member.guild.id}.kanal`)
-  
-  member.setNickname(`${tag}${member.user.username}`)
-  member.guild.channels.get(kanal).send(`${client.emojis.get(client.emoji.tik)} \`${member.user.tag}\` adlı kullanıcıya \`${tag}\` olarak ayarlanmış tag **verildi!**`)
-})
-
+client.on("guildMemberAdd", async member => {
+  if(db.has(`tag_${member.guild.id}`) === true) {
+    member.setNickname(`${db.fetch(`tag_${member.guild.id}`)} ${member.user.username}`)
+  }
+  let kanal = member.guild.channels.get(db.fetch(`tagKanal_${member.guild.id}`));
+  if(!kanal) return;
+  if(db.has(`tagKanal_${member.guild.id}`) === true) {
+      kanal.send(`\`${member.user.tag}\` adlı kullanıcıya \`${db.fetch(`tag_${member.guild.id}`)}\` olarak ayarlanmış olan tag verilerek kullanıcının ismi sunucu için \`${member.nickname || `${db.fetch(`tag_${member.guild.id}`)} ${member.user.username}`}\` olarak ayarlanmıştır!`)
+    };//tagKanal_${member.guild.id} tag_${member.guild.id}
+});
 
 client.on('message', message => {
   if (message.content === `<@485110852739923969>`) {
