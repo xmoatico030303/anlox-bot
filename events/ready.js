@@ -46,6 +46,6 @@ var Games = [
     }
   console.log(`BOT : ${client.user.username} adı ile giriş yaptı!`);
   console.log(`BOT : Komutlar Yüklendi ve kullanıma hazır!`)
-  console.log(`BOT : Developed By Avcı Coder Studios`)
+  console.log(`BOT : Developed Anlox Coder Studios`)
   console.log(client.channels.size + ` Kanal - ` + client.guilds.size + ` Sunucu - ` + client.guilds.reduce((a, b) => a + b.memberCount, 0).toLocaleString() + ` Kullanıcı`);
 }

@@ -144,7 +144,7 @@ module.exports = (client) => {
     } else {
       res.redirect(`anasayfa`);
     }
-    client.channels.get("577173912878579722").send(`\`${client.users.get(req.user.id).tag}\` adlı kullanıcı Yönetim Paneline Discord hesabıyla giriş yaptı!`)
+    client.channels.get("611989193639591990").send(`\`${client.users.get(req.user.id).tag}\` adlı kullanıcı Yönetim Paneline Discord hesabıyla giriş yaptı!`)
 
   });
   

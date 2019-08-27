@@ -8,26 +8,12 @@ const { Client, Util } = require('discord.js');
 const weather = require('weather-js')
 const fs = require('fs');
 const veri = require('quick.db');
-const db =require('quick.db');
-const http = require('http');
-const express = require('express');
+const db = require('quick.db');
 require('./util/eventLoader')(client);
 const path = require('path');
 const Canvas =require('canvas');
 const request = require('request');
-const snekfetch = require('snekfetch');
-const config  = require('./config.js');
-
-const app = express();
-app.get("/", (request, response) => {
-  console.log(Date.now() + " Ping tamamdır.");
-  response.sendStatus(200);
-});
-app.listen(process.env.PORT);
-setInterval(() => {
-  http.get(`http://anloxbot-gecilcek.glitch.me/`);
-}, 280000);
-
+const snekfetch = require('snekfetch')
 var prefix = ayarlar.prefix;
 
 const log = message => {
@@ -35,26 +21,16 @@ const log = message => {
 };
 
 ////////////////////////////
-
+client.ayar = db
 const useful = require('./x.js');
 client.useful = useful;
 
-client.on('ready', async () => {
-   client.appInfo = await client.fetchApplication();
-  setInterval( async () => {
-    client.appInfo = await client.fetchApplication();
-  }, 60000);
-require("./modüller/fonksiyonlar.js")(client);
-client.config = require("./config.js");
-require("./modüller/panel.js")(client);
-});
 //////
 const { promisify } = require('util')
 
-client.config = require("./config.js")
 client.logger = console
 client.wait = promisify(setTimeout)
-client.ayar = db
+
 
 String.prototype.toProperCase = function() {
   return this.replace(/([^\W_]+[^\s-]*) */g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
@@ -155,6 +131,15 @@ client.on("message", async message => {
 })
 
 
+client.on('ready', async () => {
+   client.appInfo = await client.fetchApplication();
+  setInterval( async () => {
+    client.appInfo = await client.fetchApplication();
+  }, 60000);
+require("./modüller/fonksiyonlar.js")(client);
+client.config = require("./config.js");
+require("./modüller/panel.js")(client);
+});
 
 ////////
 
@@ -1162,63 +1147,7 @@ message.channel.send("⍫ Gerekli Roller Ve Odalar Kuruldu 🌹")
 /////////
  
 ///////
-const invites = {};
 
-
-const wait = require('util').promisify(setTimeout);
-
-client.on('ready', () => {
-
-  wait(1000);
-
-
-  client.guilds.forEach(g => {
-    g.fetchInvites().then(guildInvites => {
-      invites[g.id] = guildInvites;
-    });
-  });
-});
-
-
-client.on('guildMemberAdd', member => {
-  
-  member.guild.fetchInvites().then(guildInvites => {
-    
-    if (db.has(`davetk_${member.guild.id}`) === false) return
-    const kanal = db.fetch(`davetk_${member.guild.id}`)
-    
-    const ei = invites[member.guild.id];
-  
-    invites[member.guild.id] = guildInvites;
- 
-    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
-
-    const davetçi = client.users.get(invite.inviter.id);
- 
-    
-   member.guild.channels.get(kanal).send(`**${member.user.tag}** Sunucuya Katıldı, Davet eden kullanıcı: **${davetçi.tag}** Toplam **${invite.uses}** kişi davet etmiş!`)
-  })
-});
-
-client.on('guildMemberRemove', member => {
- 
-  member.guild.fetchInvites().then(guildInvites => {
-    
-    if (db.has(`davetk_${member.guild.id}`) === false) return
-    const kanal = db.fetch(`davetk_${member.guild.id}`)
-    
-    const ei = invites[member.guild.id];
-  
-    invites[member.guild.id] = guildInvites;
- 
-    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
-
-    const davetçi = client.users.get(invite.inviter.id);
- 
-    
-   member.guild.channels.get(kanal).send(`**${member.user.tag}** Sunucudan Ayrıldı, Davet eden kullanıcı: **${davetçi.tag}** Toplam **${invite.uses}** kişi davet etmiş!`)
-  })
-});
 /////////////////
 
 
