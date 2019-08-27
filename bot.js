@@ -13,7 +13,7 @@ require('./util/eventLoader')(client);
 const path = require('path');
 const Canvas =require('canvas');
 const request = require('request');
-const snekfetch = require('snekfetch')
+const snekfetch = require('snekfetch');
 var prefix = ayarlar.prefix;
 
 const log = message => {

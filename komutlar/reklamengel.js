@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const db = require('quick.db');
 const client = new Discord.Client();
 
-let emoji = client.emojis.get("599695534483046420")
+let emoji = client.emojis.get("616030914845081600")
 
 
 
