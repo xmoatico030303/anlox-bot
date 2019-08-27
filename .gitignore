@@ -1,0 +1,4 @@
+*.png
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
