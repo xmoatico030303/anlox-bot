@@ -75,11 +75,11 @@
           <label for="cikisM">Çıkış Mesajı</label>
       </div>
       <div class="col-75">
-        <% if (bot.ayar.has(`cmesaj_${guild.id}`) === false) { %>
+        <% if (bot.ayar.has(`ozelhosgeldin_${guild.id}`) === false) { %>
         <input type="text" style="text-align: left; width:87%;" name="cikisM" id="cikisM" maxlength="1950" placeholder="Örnek: {sunucu} Adlı sunucuya {kullanıcı} adlı üye katıldı.">
           <a href="/panel/<%=guild.id%>/cikism/sifirla" class="reset-btn" role="button">Sıfırla</a>
           <% } %>
-					<% if(bot.ayar.has(`cmesaj_${guild.id}`) === true) { %>
+					<% if(bot.ayar.has(`ozelhosgeldin_${guild.id}`) === true) { %>
         <input type="text" style="text-align: left; width:87%;" name="cikisM" id="cikisM" maxlength="1950" value="<%=bot.ayar.fetch(`cmesaj_${guild.id}`)%>">
           <a href="/panel/<%=guild.id%>/cikism/sifirla" class="reset-btn" role="button">Sıfırla</a>
           <% } %>
@@ -91,11 +91,11 @@
           <label for="girisM">Giriş Mesajı</label>
       </div>
       <div class="col-75">
-        <% if (bot.ayar.has(`gmesaj_${guild.id}`) === false) { %>
+        <% if (bot.ayar.has(`ozelgorusuruz_${guild.id}`) === false) { %>
         <input type="text" style="text-align: left; width:87%;" name="girisM" id="girisM" maxlength="1950" placeholder="Örnek: {sunucu} Adlı sunucudan {kullanıcı} adlı üye çıkış yaptı.">
           <a href="/panel/<%=guild.id%>/girism/sifirla" class="reset-btn" role="button">Sıfırla</a>
           <% } %>
-					<% if(bot.ayar.has(`gmesaj_${guild.id}`) === true) { %>
+					<% if(bot.ayar.has(`ozelgorusuruz_${guild.id}`) === true) { %>
         <input type="text" style="text-align: left; width:87%;" name="girisM" id="girisM" maxlength="1950" value="<%=bot.ayar.fetch(`gmesaj_${guild.id}`)%>">
           <a href="/panel/<%=guild.id%>/girism/sifirla" class="reset-btn" role="button">Sıfırla</a>
           <% } %>
