@@ -13,10 +13,9 @@ const helmet = require("helmet");
 
 const md = require("marked");
 const db = require('quick.db');
-const ayarlar = client.ayarlar
 
 module.exports = (client) => {
-  
+const ayarlar = client.ayarlar  
   const bilgiler = {
     oauthSecret: "lNYupwJAzgSjqLSgnf8z5zZITsalw2K4",
     callbackURL: `https://anloxbot-gecilcek.glitch.me/callback`,
@@ -47,7 +46,7 @@ module.exports = (client) => {
   }));
 
   app.use(session({
-    secret: 'mert',
+    secret: 'djrjrj',
     resave: false,
     saveUninitialized: false,
   }));

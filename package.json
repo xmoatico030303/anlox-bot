@@ -55,15 +55,16 @@
     "quick.db": "^7.0.0-b22"
   },
   "engines": {
-    "node": "8.x"
+    "node": "8.4.0"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/hello-express"
+    "type": "git",
+    "url": "git+https://github.com/An-Idiots-Guide/guidebot.git"
   },
+  "author": "The Idiot's Guide Community",
   "license": "MIT",
-  "keywords": [
-    "node",
-    "glitch",
-    "express"
-  ]
+  "bugs": {
+    "url": "https://github.com/An-Idiots-Guide/guidebot/issues"
+  },
+  "homepage": "https://github.com/An-Idiots-Guide/guidebot#readme"
 }
