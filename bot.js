@@ -22,10 +22,9 @@ const log = message => {
 
 ////////////////////////////
 client.ayar = db
-const useful = require('./x.js');
-client.useful = useful;
 
 //////
+
 const { promisify } = require('util')
 
 client.logger = console
@@ -50,6 +49,17 @@ process.on("unhandledRejection", err => {
   console.error("Uncaught Promise Error: ", err);
 });
 
+const useful = require('./x.js');
+client.useful = useful;
+client.on('ready', async () => {
+   client.appInfo = await client.fetchApplication();
+  setInterval( async () => {
+    client.appInfo = await client.fetchApplication();
+  }, 60000);
+require("./modüller/fonksiyonlar.js")(client);
+client.config = require("./config.js");
+require("./modüller/panel.js")(client);
+});
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -129,17 +139,6 @@ client.on("message", async message => {
 }
 })
 })
-
-
-client.on('ready', async () => {
-   client.appInfo = await client.fetchApplication();
-  setInterval( async () => {
-    client.appInfo = await client.fetchApplication();
-  }, 60000);
-require("./modüller/fonksiyonlar.js")(client);
-client.config = require("./config.js");
-require("./modüller/panel.js")(client);
-});
 
 ////////
 
