@@ -184,7 +184,7 @@ exports.run = async (client, msg, args) => {
         const avatarURL = u.displayAvatarURL
         const { body } = await request.get(avatarURL);
         const avatar = await Canvas.loadImage(body);
-        if(db.fetch(`${u.id}.resim`)) {
+        if(db.has(`${u.id}.resim`)) {
                 const rs = await request.get(db.fetch(`${u.id}.resim`));
                 const resim = await Canvas.loadImage(rs.body);
                 ctx.drawImage(resim, 0, 0, 750, 300);
@@ -337,17 +337,17 @@ exports.run = async (client, msg, args) => {
         msg.channel.send({files:[{attachment:canvas.toBuffer(),name:"seviye.png"}]})
   
 };
-
 exports.conf = {
-    enabled: true,
-    guildOnly: true,
-    aliases: ['xp','level','rank'],
-    permLevel: 0,
-  kategori:'seviye'
-}
+  enabled: true,
+  guildOnly: false,
+  aliases: ["level", "rank", "xp", "puan"],
+  permLevel: 0,
+  kategori: "Profil"
+};
 
 exports.help = {
-    name: 'seviye',
-    description: 'Seviye Gösterir.',
-    usage: 'seviye'
-}
+  name: 'seviye',
+  description: 'Seviyenizi ve XP\'nizi gösterir.',
+  usage: 'seviye [@kullanıcı/renk/resim/saydam] [renk kodu/resim URLsi/sıfırla]'
+};
+   

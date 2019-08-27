@@ -1,5 +1,6 @@
 const url = require("url");
 const path = require("path");
+
 const Discord = require("discord.js");
 
 var express = require('express');
@@ -9,13 +10,17 @@ const passport = require("passport");
 const session = require("express-session");
 const LevelStore = require("level-session-store")(session);
 const Strategy = require("passport-discord").Strategy;
+//const pas = require("password-generator")
 const helmet = require("helmet");
+
+const client = new Discord.Client();
 
 const md = require("marked");
 const db = require('quick.db');
+const ayarlar = client.ayarlar
 
 module.exports = (client) => {
-const ayarlar = client.ayarlar  
+  
   const bilgiler = {
     oauthSecret: "lNYupwJAzgSjqLSgnf8z5zZITsalw2K4",
     callbackURL: `https://anloxbot-gecilcek.glitch.me/callback`,
@@ -86,9 +91,56 @@ const ayarlar = client.ayarlar
   app.get("/", (req, res) => {
     yukle(res, req, "anasayfa.ejs")
   });
-   app.get("/", (req, res) => {
+  app.get("/liderlik/:sunucuID",(req,res)=>{
+/*    
+    let msg = req.params.sunucuID
+    let members = req.params.kullaniciID
+        let sorted = (u => !u.user.client)//.array().sort((a, b) => { return (db.fetch(`seviye_${b.user.id + msg}`) ? db.fetch(`seviye_${b.user.id + msg}`) : 0) - (db.fetch(`seviye_${a.user.id + msg}`) ? db.fetch(`seviye_${a.user.id + msg}`) : 0) });
+               const top10 = sorted(0, 10)
+                const mappedXp = top10.filter(o => !o.client).map(s => db.fetch(`puancik_${s.user.id + msg}`))
+                const mappedLevel = top10.filter(o => !o.client).map(s => db.fetch(`seviye_${s.user.id + msg}`) || 0)
+                const mappedName = top10.filter(o => !o.client).map(s => s.user.tag);
+                const mappedID = top10.filter(o => !o.client).map(s => s.user.id);
+   let sayi = 1
+   const map = top10.map(s => `[${sayi++}]: ${s.user.tag}\n # Seviye: ${db.fetch(`seviye_${s.user.id + msg}`) || 0} | XP: ${db.fetch(`puancik_${s.user.id + msg}`) || 0}`.replace(msg, `> ${msg}`)).join('\n\n')
+*/
+    yukle(res,req,"lider.ejs")
+  });/*
+    function girisGerekli2(req, res, next) {
+    if (req.isAuthenticated()) {
+      yukle(res, req, "dogru.ejs")
+      let rol = db.fetch(`dogrurol.${req.params.sunucuID}`)
+      let user = db.fetch(`dogrukullanıcı.${req.params.sunucuID}`)
+      client.guilds.get(req.params.sunucuID).members.get(user).addRole(rol)
+    }
+    res.redirect("/giris2");
+  }*/
+  //lan oldu dcye gir
+    app.get("/dogrula/:kod" , (req, res) => {
+    yukle(res, req, "dogru.ejs")
+    let rol = db.fetch(`dogrurol.${req.params.sunucuID}`)
+    let user = db.fetch(`dogrukullanıcı.${req.params.sunucuID}`)
+    client.guilds.get(db.fetch(`sckod.${req.params.kod}`)).members.get(db.fetch(`koduser.${req.params.kod}`)).addRole(db.fetch(`kodlarol.${req.params.kod}`)) 
+     // console.log(req.params.sunucuID)
+  });// elleme yaptim
+
+  // sizin yapmanız gereken google doğrula yapılınca doğrulama butonunu çıkartmak , beyler girince anasayfaya yönlendiriyor
+
+  app.post("/dogrula/:sunucuID/:kod", function(req, res) {
+    if(db.fetch(`dogrukod.${req.user.id}.${req.params.sunucuID}`) === req.params.kod) {
+    //let rol = db.fetch(`dogrurol.${req.params.sunucuID}`)
+      client.guilds.get(db.fetch(`sckod.${req.params.kod}`)).members.get(db.fetch(`koduser.${req.params.kod}`)).addRole(db.fetch(`kodlarol.${req.params.kod}`))
+      // kullanıcı kodu doğru girince olacak şeyler
+  //  res.redirect("/doğruladi")
+  
+    } else {
+      res.send("hata!")
+    }
+  })
+
+   /*app.get("/", (req, res) => {
     yukle(res, req, "deneme.ejs")
-  });
+  });*/
  
 
   app.get("/giris", (req, res, next) => {
@@ -125,7 +177,7 @@ const ayarlar = client.ayarlar
   
   app.get("/autherror", (req, res) => {
     res.json({"hata":"Bir hata sonucunda Discord'da bağlanamadım! Lütfen tekrar deneyiniz."})
-    client.channels.get("611989193639591990").send(`\`${client.users.get(req.user.id).tag}\` adlı kullanıcı Yönetim Paneline Giriş Yapamadı!`)
+    client.channels.get("616044609604419634").send(`\`${client.users.get(req.user.id).tag}\` adlı kullanıcı Yönetim Paneline Giriş Yapamadı!`)
   });
   
   app.get("/callback", passport.authenticate("discord", { failureRedirect: "/autherror" }), async (req, res) => {
@@ -142,7 +194,7 @@ const ayarlar = client.ayarlar
     } else {
       res.redirect(`anasayfa`);
     }
-    client.channels.get("611989193639591990").send(`\`${client.users.get(req.user.id).tag}\` adlı kullanıcı Yönetim Paneline Discord hesabıyla giriş yaptı!`)
+  client.channels.get("616044609604419634").send(`\`${client.users.get(req.user.id).tag} (${client.users.get(req.user.id).id})\` adlı kullanıcı Yönetim Paneline Discord hesabıyla giriş yaptı!`)
 
   });
   
@@ -162,8 +214,8 @@ const ayarlar = client.ayarlar
     yukle(res, req, "anasayfa.ejs");
   });
   
-   app.get("/deneme", (req, res) => {
-    yukle(res, req, "deneme.ejs");
+app.get("/dorulandi", (req, res) => {
+    yukle(res, req, "dogrula.ejs");
   });
   app.get("/komutlar", (req, res) => {
     yukle(res, req, "komutlar.ejs");
@@ -181,7 +233,7 @@ const ayarlar = client.ayarlar
   app.get("/kullaniciler", (req, res) => {
     yukle(res, req, "kullanıcılar.ejs");
   });
-  //Buralar hata verir Shard açınca agab düzeltilmezde o zmn bot yüksek olunca sçtk / düzeltilirde Burası sıfırdan yazılması lazım olr biz üşengeç adamlarız olm / :D
+  //Buralar hata verir Shard açınca agab düzeltilmezde o zmn bot yüksek olunca sçtk / düzeltilirde Burası sıfırdan yazılması lazım olr biz üşengeç adamlarız olm / :Djtjfjf
   app.get("/kullaniciler/:kullaniciID", (req, res) => {
     const kullanici = client.users.get(req.params.kullaniciID);
     if (!kullanici) return res.json({"hata":"Bot "+req.params.kullaniciID+" ID adresine sahip bir kullanıcıyı göremiyor."});
@@ -198,13 +250,32 @@ const ayarlar = client.ayarlar
   });
   
   app.post("/kullaniciler/:kullaniciID/yonet", girisGerekli, (req, res) => {
-    const kullanici = client.users.get(req.params.kullaniciID);
+    const kullanici = client.users.get (req.params.kullaniciID);
     if (!kullanici) return res.json({"hata":"Bot "+req.params.kullaniciID+" ID adresine sahip bir kullanıcıyı göremiyor."});
     if (req.user.id !== req.params.kullaniciID) return res.json({"hata":"Başkasının kullanıcı ayarlarına dokunamazsın."});
+  //  if (db.set(`${req.params.kullaniciID}.renk`,req.params.ayarID === "renk"))
     client.panel.ayarlarKaydetKullanici(kullanici.id, kullanici, req.body, req, res);
     res.redirect(`/kullaniciler/${req.params.kullaniciID}/yonet`);
   });
+/*
+  app.get("/dogrula/:kod", girisGerekli ,(req,res) => {
+
+    yukle(res, req, "dogru.ejs")
+  });
+
+  // sizin yapmanız gereken google doğrula yapılınca doğrulama butonunu çıkartmak , beyler girince anasayfaya yönlendiriyor
+
+  app.post("/dogrula/:sunucuID/:kod", function(req, res) {
+    if(db.fetch(`dogrukod.${req.user.id}.${req.params.sunucuID}`) === req.params.kod) {
+    let rol = db.fetch(`dogrurol.${req.params.sunucuID}`)
+      client.guilds.get(req.params.sunucuID).members.get(req.user.id).addRole(rol)
+      // kullanıcı kodu doğru girince olacak şeyler
+    res.redirect("/doğruladi")
   
+    } else {
+      res.send("hata!")
+    }
+  })*/
   app.get("/kullaniciler/:kullaniciID/yonet/:ayarID/sifirla", girisGerekli, (req, res) => {
     if (db.has(`${req.params.kullaniciID}.${req.params.ayarID}`) ===  false || req.params.ayarID === "resim" && db.fetch(`${req.params.kullaniciID}.${req.params.ayarID}`) === "https://img.revabot.tk/99kd63vy.png") return res.json({"hata":req.params.ayarID.charAt(0).toUpperCase()+req.params.ayarID.slice(1)+" ayarı "+client.users.get(req.params.kullaniciID).tag+" adlı kullanıcıda ayarlı olmadığı için sıfırlanamaz."});
     db.delete(`${req.params.kullaniciID}.${req.params.ayarID}`)
@@ -833,5 +904,5 @@ res.redirect("/panel/"+req.params.guildID+"/genel");
  
   //İngilizce Bölümler
 
-  
+  app.listen(process.env.PORT);
 };

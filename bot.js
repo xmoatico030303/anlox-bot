@@ -789,7 +789,6 @@ let args = cont.slice(1);
 )
 client.on("message", async msg => {
   const db = require('quick.db');
-  
   if (msg.channel.type === "dm") return;
   if(msg.author.bot) return;  
   
@@ -801,12 +800,9 @@ client.on("message", async msg => {
   if (db.fetch(`puancik_${msg.author.id + msg.guild.id}`) > 150) {
     
     db.add(`seviye_${msg.author.id + msg.guild.id}`, 1)
-    
-    msg.channel.send(`Tebrik ederim <@${msg.author.id}>! Seviye atladın ve **${db.fetch(`seviye_${msg.author.id + msg.guild.id}`)}** seviye oldun!`)
-    
-    db.delete(`puancik_${msg.author.id + msg.guild.id}`)
-    
-  };
+    if (msg.guild.id === "264445053596991498") return;
+    msg.channel.send(`${client.emojis.get(client.emoji.levelup)}Tebrik ederim <@${msg.author.id}>! Seviye atladın ve **${db.fetch(`seviye_${msg.author.id + msg.guild.id}`)}** seviye oldun!`)
+    db.delete(`puancik_${msg.author.id + msg.guild.id}`)};
  
   if (db.has(`roll_${msg.guild.id}`) === true) {
   if (db.has(`rollss_${msg.guild.id}`) === true) {
@@ -821,9 +817,7 @@ client.on("message", async msg => {
     }
   };
 }};
-  
-});
-
+  });
 ///////
 client.emoji = {
   "tik" : "603918735774056449",
