@@ -1,19 +1,3 @@
-const express = require('express');
-const https = require('https');
-const app = express();
-
-app.get('/', (request, response) => {
-   console.log(`az önce panelime biri' tıkladı.`);
-   response.sendStatus(100);
-});
-
-app.listen(process.env.PORT);
-setInterval(() => {
-  https.get(`https://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 280000);
-
-
-
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const ayarlar = require('./ayarlar.json');
@@ -32,6 +16,13 @@ const request = require('request');
 const snekfetch = require('snekfetch');
 var prefix = ayarlar.prefix;
 
+
+const log = message => {
+    console.log(`${message}`);
+};
+
+////////////////////////////
+client.ayar = db
 const useful = require('./x.js');
 client.useful = useful;
 client.on('ready', async () => {
@@ -43,14 +34,6 @@ require("./modüller/fonksiyonlar.js")(client);
 client.config = require("./config.js");
 require("./modüller/panel.js")(client);
 });
-
-const log = message => {
-    console.log(`${message}`);
-};
-
-////////////////////////////
-client.ayar = db
-
 //////
 
 const { promisify } = require('util')
@@ -76,6 +59,10 @@ process.on("uncaughtException", (err) => {
 process.on("unhandledRejection", err => {
   console.error("Uncaught Promise Error: ", err);
 });
+
+client.ayarlar = {
+"sahip": "446048541488578569"
+};
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();

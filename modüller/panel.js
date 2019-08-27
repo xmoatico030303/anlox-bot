@@ -1,6 +1,5 @@
 const url = require("url");
 const path = require("path");
-
 const Discord = require("discord.js");
 
 var express = require('express');
@@ -14,7 +13,7 @@ const helmet = require("helmet");
 
 const md = require("marked");
 const db = require('quick.db');
-const ayarlar = require('../ayarlar.json')
+const ayarlar = client.ayarlar
 
 module.exports = (client) => {
   
