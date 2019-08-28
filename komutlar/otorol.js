@@ -7,8 +7,8 @@ let p = await db.fetch(`prefix_${message.guild.id}`) || '!'
 let rol = message.mentions.roles.first() //| message.guild.roles.get(args.join(' '))
 if (!rol) return message.channel.send(`Otorol sistemini ayarlamak için \`${p}otorol @rol\`,otorol sistemini loglu yapmak için ise; \`${p}otorol @rol #kanal\` olarak yapınız. Otorolü ve Logu sıfırlamak için \`${p}otorol-kapat\``);
 let kanal = message.mentions.channels.first();
-db.set(`otorol_${message.guild.id}`, rol.id)
-db.set(`otorolkanal_${message.guild.id}`, kanal.id)
+db.set(`orol_${message.guild.id}`, rol.id)
+db.set(`orolk_${message.guild.id}`, kanal.id)
 
 message.channel.send(`${evettek} Başarıyla Otorol ${rol} , otorol kanalı ${kanal}`)  
  };
