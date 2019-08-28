@@ -1,71 +1,42 @@
-const Discord = require('discord.js')
-const db = require('quick.db')
-const moment = require('moment');
-const ms = require('ms')
-const fs = require('fs')
-const ayarlar = require('../ayarlar.json')
+const Discord = require('discord.js');
+const db = require('quick.db');
 
 exports.run = async (client, message, args) => {
+    if (!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('`SUNUCUYU_YÖNET` yetkisine sahip olmalısın!')
+
   
-  const db = require('quick.db');
   
-  let prefix = await db.fetch(`prefix_${message.guild.id}`) || ayarlar.prefix;
+  let kanal = message.mentions.channels.first();
+  if (!kanal) return message.reply('Sayaç Özelliği İçin Bir Sayı, Kanal Belirlemelisin!')
   
-var room;
-var title;
-var duration;
-var filter = m => m.author.id === message.author.id;
- 
+  let sayi = args[0];
+  if (!sayi) return message.reply('Sayaç Özelliği İçin Bir Sayı, Kanal Belirlemelisin!')
+      
+  if (db.has(`sayac_${message.guild.id}`) === true){
   
-      const kanal = new Discord.RichEmbed()
-      .setColor(`#FE4469`)
-      .setTitle(`Kanal Belirtin`)
-      .setDescription(`Sayaç kanalının adını belirtin`)
-      .setFooter(`Kanal seçimi 10 saniye içinde otomatik olarak sona erecek`)
-      message.channel.send(kanal).then(msg => {
-      message.channel.awaitMessages(filter, {
-        max: 1,
-        time: 10000,
-        errors: ['time']
-      }).then(collected => {
-        let channel = message.mentions.channels.first()
-        if(!channel) return message.channel.send('Böyle bir kanal bulunmuyor');
-        room = collected.first().content;
-            const hedef = new Discord.RichEmbed()
-            .setColor(`#FE4469`)
-            .setTitle(`Hedef Belirtin`)
-            .setDescription(`Hedef kullanıcı sayısını belirtin`)
-            .setFooter(`Hedef seçimi 10 saniye içinde otomatik olarak sona erecek`)
-            msg.channel.send(hedef).then(msg => {
-              message.channel.awaitMessages(filter, {
-                max: 1,
-                time: 10000,
-                errors: ['time']
-              }).then(collected => {
-                title = collected.first().content;
-                  message.channel.send(`<:onay:563998148821909505> Sayaç kanalı başarıyla \`${channel.name}\` adlı kanal olarak ve sayaç sayısı \`${title}\` olarak ayarlandı!`)
-                
-                var sk = db.set(`sk_${message.guild.id}`, channel.id)
-               var s = db.set(`s_${message.guild.id}`, title)
+  db.set(`sayacs_${message.guild.id}`, sayi)  
+  db.set(`sayac_${message.guild.id}`, kanal.id);
     
-                }
-            );
-                }
-              );
-            });
-          });
+  message.channel.send(`Sayaç Kanalı ${kanal} ve Sayaç Sayısı ${sayi} olarak değiştirildi!`) 
+  }
+  
+  if (db.has(`sayac_${message.guild.id}`) === false){
+  
+  db.set(`sayacs_${message.guild.id}`, sayi)  
+  db.set(`sayac_${message.guild.id}`, kanal.id);
+  
+  message.channel.send(`Sayaç Kanalı ${kanal} ve Sayaç Sayısı ${sayi} olarak ayarlandı!`)
+  }
 }
-
 exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	aliases: ['sayaç', 'sayaçayarla'],
-	permLevel: 4,
-  category: 'ayarlar'
+  enabled: true,
+  guildOnly: false,
+  aliases: ['sayac','set-counter','counter'],
+  permLevel: 0,
+  kategori: "moderasyon"
 }
-
 exports.help = {
-	name: 'sayaç-ayarla',
-	description: 'Sayaç sayısını ve kanalını ayarlamanızı sağlar',
-	usage: 'sayaç-ayarla <#kanal> <sayı>',
+  name: 'sayaç',
+  description: 'Sayaç Özelliği Ayarlar.',
+  usage: '/sayaç'
 }
