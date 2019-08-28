@@ -10,6 +10,8 @@ exports.run = async (client, message, args) => {
   let gbs = await db.fetch(`geribildirim_${client.user.id}`)
   let surum = await db.fetch(`activity_${client.user.id}`)
   const dikkat = client.emojis.get('616361735770865672');
+    const yuklenmee = client.emojis.get('616362262902472791');
+  
   
   const duration = moment.duration(client.uptime).format(" D [gün], H [saat], m [dakika], s [saniye]");
   
@@ -17,9 +19,9 @@ exports.run = async (client, message, args) => {
   .setColor(client.ayarlar.renk)
   .setAuthor(`${client.user.username} - İstatistik`, `https://cdn.discordapp.com/emojis/604040658239356929.png?v=1`)
   .addField(`Geliştirici Ekibi :`, ` ${dikkat} Ekip Lideri : <@${client.ayarlar.sahip}>`, true)
-  .addField(` **Ram Kullanımı:**`, `\`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB\``,true)
-  .addField(` **Çalışma Süresi :**`, `\`${duration}\``, true)
-  .addField(` **Kullanıcı Sayısı :**`, `\`${client.guilds.reduce((a, b) => a + b.memberCount, 0).toLocaleString()}\``, true)
+  .addField(`${yuklenmee} **Ram Kullanımı:**`, `\`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB\``,true)
+  .addField(`<:vds:616363338946838567> **Çalışma Süresi :**`, `\`${duration}\``, true)
+  .addField(`<:adamlar:616365356252004358> **Kullanıcı Sayısı :**`, `\`${client.guilds.reduce((a, b) => a + b.memberCount, 0).toLocaleString()}\``, true)
   .addField(` **Sunucu Sayısı :**`, `\`${client.guilds.size.toLocaleString()}\``, true)
   .addField(` **Kanal Sayısı :**`, `\`${client.channels.size.toLocaleString()}\``, true)
   .addField(`**Bit**`, `\`${os.arch()}\``, true)
