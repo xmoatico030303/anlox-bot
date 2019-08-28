@@ -22,7 +22,7 @@ if (reklamm == null) reklam = `${çarpı} ${p}reklam-engel`
 if (reklamm == 'Aktif') reklam = `${tik}`
 if (reklamm == 'Deaktif') reklam = `${çarpı} ${p}reklam-engel`
 //Capslock Filtresi
-let capps = await db.fetch(`capsE_${message.guild.id}`)
+let capps = await db.fetch(`capslock_${message.guild.id}`)
 let caps;
 if (capps == null) caps =`${çarpı} ${p}caps-engel`
 if (capps == 'Aktif') caps = `${tik}`
@@ -125,7 +125,7 @@ const ayarlar = new Discord.RichEmbed()
 .addField('Küfür Engel', kufurYazi, true)
 .addField('Reklam Engel', reklam, true) 
 .addField('Everyone Engel', ever, true)
-.addField('Capslock Engel', caps, true)
+.addField('Capslock Engel', capps, true)
 .addField('Spam Engel', sp, true)
 .addField('Selam Filtre', slm,true)
 .addField('Seviye Mesaj', sm, true)
