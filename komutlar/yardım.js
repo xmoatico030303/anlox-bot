@@ -2,12 +2,12 @@ const Discord = require("discord.js");
 const db = require("quick.db");
 const client = new Discord.Client();
 const ayarlar = require("../ayarlar.json")
-const sall = client.emojis.get("616084294091276316")
+
 
 exports.run = async (bot, msg, args, dil) => {
   const client = bot;
   let prefix = (await db.fetch(`prefix_${msg.guild.id}`)) || ayarlar.prefix;
-
+const sall = client.emojis.get("616084294091276316")
   var arg = ``;
   if (args[0] === "özel") {
     var arg = `moderasyon`;
@@ -66,7 +66,7 @@ ${cats}
 */
     const embed = new Discord.RichEmbed()
       .setColor(`#FE4469`)
-      .setTitle(`Komut Gruplarım`)
+      .setTitle(`${sall} Komut Gruplarım`)
       .setDescription(
         `${cats}
         [${prefix}yardım müzik](anloxforum.cf/) • Müzik komutlarını gösterir`

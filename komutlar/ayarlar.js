@@ -3,13 +3,12 @@ const db = require('quick.db');
 
 exports.run = async (client, message, args) => {
   let p = await db.fetch(`prefix_${message.guild.id}`) || client.ayarlar.prefix;
-  
+  const kapal = client.emojis.get('616087430969163798');
   // </> :Ayar Sıfırlama: <\>
   let arguman = args[1]
   let sifirla = args[0]
 
 if (sifirla === "sıfırla") {  
-  
  if (!sifirla) {
   return message.channel.send(`**(Ayar İsimleri : otorol , ototag , küfür-engel , reklam-engel , büyükharf-engel)**`);
  };
@@ -41,7 +40,7 @@ if (sifirla === "sıfırla") {
   let kufur;
   
   if (kufurE === null) kufur = `<:dnd:598876653636288512> ${p}küfür-engel aç`
-  if (kufurE === "Aktif") kufur = `<:online:599695534483046420>  ${p}küfür-engel kapat`
+  if (kufurE === "Aktif") kufur = `${}  ${p}küfür-engel kapat`
   // </> :Küfür Engel: <\> 
   // </> :Reklam Engel: <\>
   let reklamE = await db.fetch(`reklamE_${message.guild.id}`)
@@ -75,7 +74,7 @@ if (sifirla === "sıfırla") {
   let sayacS = await db.fetch(`sayac_${message.guild.id}.sayı`)
   let sayacs;
   
-  if (sayacS === null) sayacs = `${client.emojis.get(client.emoji.kapalı)} ${p}sayaç-ayarla`
+  if (sayacS === null) sayacs = `${kapal} ${p}sayaç-ayarla`
   else sayacs = `${client.emojis.get(client.emoji.açık)} ${sayacS}`
   let sayacK = await db.fetch(`sayac_${message.guild.id}.kanal`)
   let sayack;
