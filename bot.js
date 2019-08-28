@@ -411,10 +411,11 @@ client.on('guildMemberAdd', async member => {
   let skanal = await db.fetch(`sayac_${member.guild.id}`);
   let sayis = await db.fetch(`sayacs_${member.guild.id}`);
   const giriss = client.emojis.get('616074844060123297');
+  const elmass = client.emojis.get('616083646608310293');
   
   if (!skanal) return
   if (db.has(`elmasüye_${member.id}`) === true) {
-    member.guild.channels.get(skanal).send(`**Sunucuda Bir Platinium Üye Belirdi! Hoşgeldin \`${member.user.tag}\`! Katılmasıyla birlikte ${sayis} üye olmamıza ${sayis - member.guild.members.size} üye kaldı!**`)
+    member.guild.channels.get(skanal).send(`${elmass} **Sunucuda Bir Platinium Üye Belirdi! Hoşgeldin \`${member.user.tag}\`! Katılmasıyla birlikte ${sayis} üye olmamıza ${sayis - member.guild.members.size} üye kaldı!**`)
   }
   client.channels.get(skanal).send(`${giriss} :inbox_tray: **${member.user.tag}** Sunucuya katıldı! \`${sayis}\` kişi olmamıza \`${sayis - member.guild.members.size}\` Üye Kaldı!`)
 });

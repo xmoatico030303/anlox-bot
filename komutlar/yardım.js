@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const db = require("quick.db");
 const client = new Discord.Client();
 const ayarlar = require("../ayarlar.json")
+const sall = client.emojis.get("616084294091276316")
 
 exports.run = async (bot, msg, args, dil) => {
   const client = bot;
