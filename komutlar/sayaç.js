@@ -7,10 +7,10 @@ exports.run = async (client, message, args) => {
   
   
   let kanal = message.mentions.channels.first();
-  if (!kanal) return message.reply('Sayaç Özelliği İçin Bir Kanal, Sayı Belirlemelisin!')
+  if (!kanal) return message.reply('Sayaç Özelliği İçin Bir Sayı, Kanal Belirlemelisin!')
   
   let sayi = args[0];
-  if (!sayi) return message.reply('Sayaç Özelliği İçin Bir Kanal, Sayı Belirlemelisin!')
+  if (!sayi) return message.reply('Sayaç Özelliği İçin Bir Sayı, Kanal Belirlemelisin!')
       
   if (db.has(`sayac_${message.guild.id}`) === true){
   

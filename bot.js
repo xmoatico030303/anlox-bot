@@ -410,22 +410,24 @@ function play(guild, song) {
 client.on('guildMemberAdd', async member => {
   let skanal = await db.fetch(`sayac_${member.guild.id}`);
   let sayis = await db.fetch(`sayacs_${member.guild.id}`);
+  const giriss = client.emojis.get('616074844060123297');
   
   if (!skanal) return
   if (db.has(`elmasüye_${member.id}`) === true) {
     member.guild.channels.get(skanal).send(`**Sunucuda Bir Platinium Üye Belirdi! Hoşgeldin \`${member.user.tag}\`! Katılmasıyla birlikte ${sayis} üye olmamıza ${sayis - member.guild.members.size} üye kaldı!**`)
   }
-  client.channels.get(skanal).send(`:inbox_tray: **${member.user.tag}** Sunucuya katıldı! \`${sayis}\` kişi olmamıza \`${sayis - member.guild.members.size}\` Üye Kaldı!`)
+  client.channels.get(skanal).send(`${giriss} :inbox_tray: **${member.user.tag}** Sunucuya katıldı! \`${sayis}\` kişi olmamıza \`${sayis - member.guild.members.size}\` Üye Kaldı!`)
 });
 client.on('guildMemberRemove', async member => {
   let skanal = await db.fetch(`sayac_${member.guild.id}`);
   let sayis = await db.fetch(`sayacs_${member.guild.id}`);
+    const anloxcikis = client.emojis.get('609111858141593603');
   
   if (!skanal) return
    if (db.has(`elmasüye_${member.id}`) === true) {
     member.guild.channels.get(skanal).send(`** Sunucuda Bir Platinium Üye Yok Oldu!  Görüşürüz \`${member.user.tag}\`! Ayrılmasıyla birlikte ${sayis} üye olmamıza ${sayis - member.guild.members.size} üye kaldı!**`)
   }
-  client.channels.get(skanal).send(`:outbox_tray: **${member.user.tag}** Sunucudan Ayrıldı! \`${sayis}\` kişi olmamıza \`${sayis - member.guild.members.size}\` Üye Kaldı!`)
+  client.channels.get(skanal).send(`${anloxcikis} :outbox_tray: **${member.user.tag}** Sunucudan Ayrıldı! \`${sayis}\` kişi olmamıza \`${sayis - member.guild.members.size}\` Üye Kaldı!`)
 });
 
 
