@@ -1,187 +1,160 @@
 const Discord = require('discord.js');
 const db = require('quick.db');
 
-exports.run = async (client, message, args) => {
-  let p = await db.fetch(`prefix_${message.guild.id}`) || client.ayarlar.prefix;
-  const kapal = client.emojis.get('616087430969163798');
-  // </> :Ayar Sıfırlama: <\>
-  let arguman = args[1]
-  let sifirla = args[0]
+exports.run = async (client, message, args, member, guild) => {
+let p = await db.fetch(`prefix_${message.guild.id}`) || '!'
+let arg = args.slice(0).join(' ');
+const tik = client.emojis.get('548865650454560769');
+const çarpı = client.emojis.get('548865604652892160');
+const bilgi = client.emojis.get('556475622617251840');
+const ayarlar2 = client.emojis.get('557665634482257950');
+const yapimda = client.emojis.get('548944381043015723');
+//Küfür Filtresi
+let kufurfiltre = await db.fetch(`kufur_${message.guild.id}`)
+let kufurYazi;
+if (kufurfiltre == null) kufurYazi = `${çarpı} ${p}küfür-engel`
+if (kufurfiltre == 'Aktif') kufurYazi = `${tik}`
+if (kufurfiltre == 'Deaktif') kufurYazi = `${çarpı} ${p}küfür-engel`
+//Reklam Filtresi
+let reklamm = await db.fetch(`reklam_${message.guild.id}`)
+let reklam;
+if (reklamm == null) reklam = `${çarpı} ${p}reklam-engel`
+if (reklamm == 'Aktif') reklam = `${tik}`
+if (reklamm == 'Deaktif') reklam = `${çarpı} ${p}reklam-engel`
+//Capslock Filtresi
+let capps = await db.fetch(`capsE_${message.guild.id}`)
+let caps;
+if (capps == null) caps =`${çarpı} ${p}caps-engel`
+if (capps == 'Aktif') caps = `${tik}`
+if (capps == 'Deaktif') caps `${çarpı} ${p}caps-engel`
 
-if (sifirla === "sıfırla") {  
- if (!sifirla) {
-  return message.channel.send(`**(Ayar İsimleri : otorol , ototag , küfür-engel , reklam-engel , büyükharf-engel)**`);
- };
-  if (arguman === "otorol") {
-    db.delete(`otorol_${message.guild.id}.rol`)
-    db.delete(`otorol_${message.guild.id}.kanal`)
-     return message.channel.send(`<:online:599695534483046420> İşlem başarılı!`)
-  }
-  if (arguman === "ototag") {
-    db.delete(`tag_${message.guild.id}.tag`)
-    db.delete(`tag_${message.guild.id}.kanal`)
-    return message.channel.send(`<:online:599695534483046420> İşlem başarılı!`)
-  }
-  if (arguman === "log") {
-    db.delete(`logK_${message.guild.id}`)
-    return message.channel.send(`<:online:599695534483046420> İşlem başarılı!`)
-  }
-}
-  // </> :Ayar Sıfırlama: <\>
-  // </> :Prefix: <\>
-  let pr = await db.fetch(`prefix_${message.guild.id}`)
-  let pre;
-  
-  if (pr === null) pre = `<:dnd:598876653636288512> ${client.ayarlar.prefix}`
-  else pre = `<:online:599695534483046420> ${pr}`
-  // </> :Prefix: <\>
-  // </> :Küfür Engel: <\> 
-  let kufurE = await db.fetch(`kufurE_${message.guild.id}`)
-  let kufur;
-  
-  if (kufurE === null) kufur = `<:dnd:598876653636288512> ${p}küfür-engel aç`
-  if (kufurE === "Aktif") kufur = `${}  ${p}küfür-engel kapat`
-  // </> :Küfür Engel: <\> 
-  // </> :Reklam Engel: <\>
-  let reklamE = await db.fetch(`reklamE_${message.guild.id}`)
-  let reklam;
-  
-  if (reklamE === null) reklam = `<:dnd:598876653636288512> ${p}reklam-engel aç`
-  if (reklamE === "Aktif") reklam = `<:online:599695534483046420>  ${p}reklam-engel kapat`
-  // </> :Reklam Engel: <\> 
-  // </> :Büyük Harf Engel: <\>
-  let buyukharfE = await db.fetch(`capsE_${message.guild.id}`)
-  let buyukharf;
-  
-  if (buyukharfE === null) buyukharf = `<:dnd:598876653636288512>  ${p}büyükharf-engel aç`
-  if (buyukharfE === "Aktif") buyukharf = `<:online:599695534483046420>  ${p}büyükharf-engel kapat`
-  // </> :Büyük Harf Engel: <\>
-  // </> :Hg Bb Kanalı: <\>
-  let i= await db.fetch(`gcc_${message.guild.id}`)
-  let gccs;
-  
-  if (i === null) gccs = `<:dnd:598876653636288512> /gkanal`
-  else gccs = `<:online:599695534483046420> <#${i}>`
-  // </> :Hg Bb Kanalı: <\>
-  // </> :Güvenlik Kanalı: <\>
-  let guvenlikK = await db.fetch(`güvenlikK_${message.guild.id}`)
-  let guvenlik;
-  
-  if (guvenlikK === null) guvenlik = `${client.emojis.get(client.emoji.kapalı)} !güvenlik-kanal`
-  else guvenlik = `${client.emojis.get(client.emoji.açık)} <#${guvenlikK}>`
-  // </> :Güvenlik Kanalı: <\>
-  // </> :Sayaç Sayı/Kanalı: <\>
-  let sayacS = await db.fetch(`sayac_${message.guild.id}.sayı`)
-  let sayacs;
-  
-  if (sayacS === null) sayacs = `${kapal} ${p}sayaç-ayarla`
-  else sayacs = `${client.emojis.get(client.emoji.açık)} ${sayacS}`
-  let sayacK = await db.fetch(`sayac_${message.guild.id}.kanal`)
-  let sayack;
-  
-  if (sayacK === null) sayack = `${client.emojis.get(client.emoji.kapalı)} ${p}sayaç-ayarla`
-  else sayack = `${client.emojis.get(client.emoji.açık)} <#${sayacK}>`
-  // </> :Sayaç Sayı/Kanalı: <\>
-  // </> :Doğrulama Sistemi: <\>
-  let dogS = await db.fetch(`dogrulamaA_${message.guild.id}`)
-  let dogs;
-  
-  if (dogS === null) dogs = `${client.emojis.get(client.emoji.kapalı)} ${p}doğrulama aç`
-  if (dogS === "Aktif") dogs = `${client.emojis.get(client.emoji.açık)} ${p}doğrulama kapat`
-  // </> :Doğrulama Sistemi: <\>
-  // </> :Doğrulama Kanalı: <\>
-  let dogK = await db.fetch(`dogrulamaK_${message.guild.id}`)
-  let dogk;
-  
-  if (dogK === null) dogk = `${client.emojis.get(client.emoji.kapalı)} ${p}doğrulama-kanal`
-  else dogk = `${client.emojis.get(client.emoji.açık)} <#${dogK}>`
-  // </> :Doğrulama Kanalı: <\>
-  // </> :Doğrulama Rolü: <\>
-  let dogR = await db.fetch(`dogrulamaR_${message.guild.id}`)
-  let dogr;
-  
-  if (dogR === null) dogr = `${client.emojis.get(client.emoji.kapalı)} ${p}doğrulama-rol`
-  else dogr = `${client.emojis.get(client.emoji.açık)} <@&${dogR}>`
-  // </> :Doğrulama Rolü: <\>
-  // </> :Emoji Kayıt Rolü: <\>
-  let emR = await db.fetch(`emojiR_${message.guild.id}`)
-  let emr;
-  
-  if (emR === null) emr = `${client.emojis.get(client.emoji.kapalı)} ${p}emoji-kayıt-rol`
-  else emr = `${client.emojis.get(client.emoji.açık)} <@&${emR}>`
-  // </> :Emoji Kayıt Rolü: <\>
-  // </> :Emoji Kayıt Kanalı: <\>
-  let emK = await db.fetch(`emojiK_${message.guild.id}`)
-  let emk;
-  
-  if (emK === null) emk = `${client.emojis.get(client.emoji.kapalı)} ${p}emoji-kayıt-kanal`
-  else emk = `${client.emojis.get(client.emoji.açık)} <#${emK}>`
-  // </> :Emoji Kayıt Kanalı: <\>
-  // </> :Ototag Sistemi: <\>
-  let otoT = await db.fetch(`tag_${message.guild.id}.tag`)
-  let otot;
-  
-  if (otoT === null) otot = `${client.emojis.get(client.emoji.kapalı)} ${p}ototag-ayarla`
-  else otot = `${client.emojis.get(client.emoji.açık)} \`${otoT}\``
-  // </> :Ototag Sistemi: <\>
-  // </> :Ototag Kanal: <\>
-  let otoK = await db.fetch(`tag_${message.guild.id}.kanal`)
-  let otok;
-  
-  if (otoK === null) otok = `${client.emojis.get(client.emoji.kapalı)} ${p}ototag-ayarla`
-  else otok = `${client.emojis.get(client.emoji.açık)} <#${otoK}>`
-  // </> :Ototag Kanal: <\>
-  // </> :Log Kanalı: <\>
-  let logK = await db.fetch(`logK_${message.guild.id}`)
-  let log;
-  
-  if (logK === null) log = `${client.emojis.get(client.emoji.kapalı)} ${p}log-ayarla`
-  else log = `${client.emojis.get(client.emoji.açık)} <#${logK}>`
-  
-  // </> :Log Kanalı: <\>
-// </>  :Otorol: </>
-let otorol_rol = await db.fetch(`orol_${message.guild.id}`);
-let otorol;
+//Everyone Filtresi
+let eve = await db.fetch(`ever_${message.guild.id}`)
+let ever;
+if (eve== null) ever = `${çarpı} ${p}everyone-engel`
+if (eve == 'Aktif') ever = `${tik}`
+if (eve == 'Deaktif') ever = `${çarpı} ${p}everyone-engel`
+//Spam-engel
+let sp = await db.fetch(`spen_${message.guild.id}`)
+let sps;
+if (sp == null) sps = `${çarpı} ${p}spam-engel`
+if (sp == 'acik') sps = `${tik}`
+if (sp == 'kapali') sps = `${çarpı} ${p}spam-engel`
+//Otorol
+let rol = await db.fetch(`otorol_${message.guild.id}`)
+let ot;
+if (rol == null) ot = `${çarpı} ${p}otorol`
+else ot = `<@&${rol}>`
+//Log Kanalı
+let mod = await db.fetch(`modlogK_${message.guild.id}`)
+let modl;
+if (mod == null) modl = `${çarpı} ${p}log-ayarla`
+else modl = `<#${mod}>`
+//sayaç
+let sayacs = await db.fetch(`sayac_${message.guild.id}`)
+let ss;
+if (sayacs == null) ss = `${çarpı} ${p}sayaç`
+else ss = `${sayacs}`
+//sayaç kanal
+let sayac = await db.fetch(`sayac_${message.guild.id}`)
+let sk;
+if (sayac == null) sk = `${çarpı} ${p}sayaç`
+else sk = `<#${sayac}>`
+//Hg-BB 
+let rgç = await db.fetch(`gckanal_${message.guild.id}`)
+let rgç2;
+if(rgç == null) rgç2 = `${çarpı} ${p}hg-bb-ayarla`
+else rgç2 = `<#${rgç}>`
+//Otorol Kanal
+let otok = await db.fetch(`otorolkanal_${message.guild.id}`)
+let otok2;
+if(otok == null) otok2 = `${çarpı} ${p}otorol`
+else otok2 = `<#${otok}>`
+//Prefix
+let prefix = await db.fetch(`prefix_${message.guild.id}`)
+let pref;
+if (prefix == null) pref = `${bilgi} Varsayılan !`
+else pref = `\`${prefix}\``
+// Güvenlik
+let güvenlik = await db.fetch(`güvenlik_${message.guild.id}`)
+let gk;
+if (güvenlik == null) gk = `${çarpı} ${p}güvenlik-kanal-ayarla`
+else gk = `<#${güvenlik}>`
+// Giriş-Çıkış
+let gç = await db.fetch(`mesajk_${message.guild.id}`)
+let gç2;
+if (gç == null) gç2 = `${çarpı} ${p}giriş-çıkış-ayarla`
+else gç2 = `<#${gç}>`
+// Davet Kanalı
+let dk = await db.fetch(`davetChannel_${message.guild.id}`)
+let dk2;
+if(dk == null) dk2 = `${çarpı} ${p}davet-kanal-ayarla`
+else dk2 = `<#${dk}>`
+let tagknl = await db.fetch(`tagKanal_${message.guild.id}`)
+let tgknl;
+if (tagknl == null) tgknl = `${çarpı} ${p}tag`
+else tgknl = (`<#${tagknl}>`)
+let tag = await db.fetch(`tag_${message.guild.id}`)
+let tg;
+if (tag == null) tg = `${çarpı} ${p}tag`
+else tg = `${tag}`
+//seviye mesaj
+let seviyemesaj = await db.fetch(`seviyeMesaj_${message.guild.id}`)
+let sm;
+if (seviyemesaj == null) sm = `${çarpı} ${p}seviye-mesaj`
+if (seviyemesaj == 'Aktif') sm = `${tik}`
+if (seviyemesaj == 'Deaktif') sm = `${çarpı} ${p}seviye-mesaj`
+// Seviye mesaj tipi
+let seviyemtipi = await db.fetch(`seviyeMesajTipi_${message.guild.id}`)
+let smt;
+if (seviyemtipi == null) smt = `${yapimda}`
+if (seviyemtipi == 'Dm') smt = `${yapimda}`
+if (seviyemtipi == 'Kanal') smt = `${yapimda}`
+// Selam Sistemi
+let selam = await db.fetch(`selam_${message.guild.id}`)
+let slm;
+if (selam == null) slm = `${çarpı} ${p}selam-filtre`
+if (selam == 'Aktif') slm = `${tik}`
+if (selam == 'Deaktif') slm = `${çarpı} ${p}selam-filtre`
+///////////////////////////
+const ayarlar = new Discord.RichEmbed()
+.setColor("0x36393e")
+.setAuthor(`${message.guild.name} || Sunucu Ayarları`, `https://cdn.discordapp.com/emojis/557665634482257950.png?v=1`)        
+.setDescription(`Bot panelden de yönetilmekte, panele gitmek için [bana](https://panel.gtrbot.cf/)\ tıkla\nAyarları kapatmak için ${p}sıfırla ayarisim`)
+.addField('Sunucuya Ait ön-ek/prefix', pref, true)
+.addField('Küfür Engel', kufurYazi, true)
+.addField('Reklam Engel', reklam, true) 
+.addField('Everyone Engel', ever, true)
+.addField('Capslock Engel', caps, true)
+.addField('Spam Engel', sps, true)
+.addField('Selam Filtre', slm,true)
+.addField('Seviye Mesaj', sm, true)
+.addField('Seviye Mesaj Tipi', smt, true)
+.addField('Otorol', ot, true)
+.addField('Sayaç', ss, true)
+.addField('Tag', tg, true)
+.addField('Sayaç Kanalı', sk, true)
+.addField('Hg Bb Kanalı', rgç2, true)
+.addField('Giriş-Çıkış Kanalı', gç2, true)
+.addField('Otorol Kanalı', otok2, true)
+.addField('Log Kanalı', modl, true)
+.addField('Güvenlik Kanalı', gk, true)
+//.addField('Davet Kanalı', dk2, true)
+.addField('Tag Kanalı', tgknl, true)
+.setFooter(`${message.author.username + '#' + message.author.discriminator} tarafından istendi`)
+message.channel.send(ayarlar)
 
-if (otorol_rol == null) otorol = `${client.emojis.get(client.emoji.kapalı)} ${p}otorol-ayarla`
-else otorol = `${client.emojis.get(client.emoji.açık)} <@&${otorol_rol}>`
-
-let otorol_kanal = await db.fetch(`orolk_${message.guild.id}`)
-let otorolK;
-
-if (otorol_kanal === null) otorolK = `${client.emojis.get(client.emoji.kapalı)} ${p}otorol-ayarla`
-else otorolK = `${client.emojis.get(client.emoji.açık)} <#${otorol_kanal}>`
-// </>  :Otorol: </>
-
-  const embed = new Discord.RichEmbed()
-  .setAuthor(`${message.guild.name} - Sunucu Ayarları`, `https://cdn.discordapp.com/emojis/604028154499170314.png?v=1`)
-  .setDescription(`- Herhangi bir ayarı sıfırlamak için \`${p}ayarlar sıfırla ayarisim\` şeklinde sıfırlayabilirsiniz.`)
-  //.setThumbnail(message.guild.iconURL)
-  .setColor(151516)
-  .addField(`**Prefix :**`, pre, true)
-  .addField(`**Küfür Engel :**`, kufur,true)
-  .addField(`**Reklam Engel :**`, reklam, true)
-  .addField(`**Büyük Harf Engel :**`, buyukharf, true)
-  .addField(`**Hg Bb Kanalı :**`, gccs, true)
-  .addField(`**Otorol :**`, otorol, true)
-  .addField(`**Otorol Kanalı :**`, otorolK, true)
-  .addField(`**Ototag :**`, otot, true)
-  .addField(`**Ototag Kanalı :**`, otok, true)
-  .addField(`**Güvenlik Kanalı :**`, guvenlik, true)
-  .addField(`**Sayaç Sayı :**`, sayacs, true)
-  .addField(`**Sayaç Kanal :**`, sayack, true)
-  .addField(`**Log Kanalı :**`, log, true)
-   message.channel.send(embed)
 }
 exports.conf = {
-  guildOnly : true,
-  enabled : true,
-  aliases : [],
-  permLvl : 3,
-  kategori : `Ayarlar`
-}
+  enabled: true,
+  guildOnly: true,
+  aliases: [],
+  permLevel: 1,
+  kategori: `Sunucu`
+};
+
 exports.help = {
-  name : "ayarlar",
-  description : "Sunucudaki ayarları gösterir.",
-  usage : "ayarlar"
-}
+  name: 'ayarlar',
+  description: 'Sunucunun ayarlarını gösterir.',
+  usage: 'ayarlar genel/kanal'
+};
