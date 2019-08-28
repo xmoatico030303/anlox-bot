@@ -14,7 +14,6 @@ exports.run = async (client, message, args) => {
   .setDescription(`Botumuz artık panelden de yönetilebilmekte, panele gitmek için [bana](https://panel-pribblebot.glitch.me/) tıkla`)
   .setThumbnail(message.guild.iconURL)
   .addField(`Prefix`, `${prefix}`, true)
-  .addField(`Mod Log Kanalı`, db.has(`mLog_${message.guild.id}`) ? `${ message.guild.channels.get(db.fetch(`mLog_${message.guild.id}`)).name}`: ` Ayarlanmamış`, true)
   .addField(`Log Kanalı`, db.has(`logK_${message.guild.id}`) ? `${ message.guild.channels.get(db.fetch(`logK_${message.guild.id}`)).name}`: ` Ayarlanmamış`, true)
   .addField(`Giriş Çıkış Kanalı`, db.has(`gc_${message.guild.id}`) ? `${ message.guild.channels.get(db.fetch(`gc_${message.guild.id}`)).name}`: ` Ayarlanmamış`, true)
   .addField(`Sayaç Kanalı`, db.has(`sk_${message.guild.id}`) ? `${ message.guild.channels.get(db.fetch(`sk_${message.guild.id}`)).name}`: ` Ayarlanmamış`, true)
