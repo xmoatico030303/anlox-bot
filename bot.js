@@ -961,17 +961,51 @@ deny: ['SEND_MESSAGES']
 }])
 
 client.on('guildMemberAdd', async member => {
-let rol = await db.fetch(`otorol_${member.guild.id}`)
-db.fetch(`otorolkanal_${member.guild.id}`).then(async i => {
-const channel = member.guild.channels.get(i)
-if (!i) return;
-let guild = member.guild;
-let otorol = guild.roles.find('name', `${rol}`);
-member.addRole(otorol);
-channel.send(`**${member.user.tag}** adlı kullanıcıya \`${rol}\` adlı rol verildi!`)
-})
-});
 
+  if (member.user.bot === true){
+
+    let botrol = await db.fetch(`botrole_${member.guild.id}`);
+    let botkanal = await db.fetch(`botroleK_${member.guild.id}`);
+    
+    if (!botrol) return
+    
+    member.addRole(member.guild.roles.get(botrol)).catch(err => {
+      console.log(err);
+    })
+    
+    if (!botkanal) return
+    
+  
+    client.channels.get(botkanal).send(`:robot: ${member} Bir Bot! \n${member} Kullanıcısına \`${member.guild.roles.get(botrol).name}\` rolü verildi!`)
+    
+  } else {
+  let elmasuye = await db.fetch(`elmasüye_${member.id}`)
+if (elmasuye === null) {
+  let otorol = await db.fetch(`otorol_${member.guild.id}`);
+  let otokanal = await db.fetch(`otorolkanal_${member.guild.id}`);
+  
+  if (!otorol) return
+    
+  member.addRole(member.guild.roles.get(otorol))
+    
+  if (!otokanal) return
+
+  client.channels.get(otokanal).send(` \`${member.user.tag}\` adlı kullanıcıya \`${member.guild.roles.get(otorol).name}\` adlı rol verildi!`)
+  }
+  if (elmasuye === 'elmas') {
+  let otorol = await db.fetch(`otorol_${member.guild.id}`);
+  let otokanal = await db.fetch(`otorolkanal_${member.guild.id}`);
+  
+  if (!otorol) return
+    
+  member.addRole(member.guild.roles.get(otorol))
+    
+  if (!otokanal) return
+
+  client.channels.get(otokanal).send(`<a:yesil:561316000725860382> **Bir Elmas Üye Belirdi** <a:mavi:561316006086311986> \`${member.guild.roles.get(otorol).name}\` adlı rol **verildi. \`${member.user.tag}\` Hoşgeldin!**`)
+  }
+  }
+});
 
 message.guild.createChannel('📌│кυяαllαя', 'text', [{
 id: message.guild.id,
