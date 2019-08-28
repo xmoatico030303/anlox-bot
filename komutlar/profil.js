@@ -7,10 +7,17 @@ const Canvas = require('canvas')
 const snekfetch = require('snekfetch');
 const request = require('node-superfetch');
 
+//Canvas.registerFont('./warsawgothicext.otf', { family: 'Warsaw' })
+
 exports.run = async(client, message, args) => {
+  if (!db.has(`para_${message.guild.id}`)) return message.channel.send('Bu sunucuda **para sistemi** açık olmadığından, profilinize **bakamazsınız!**')
+  
   let user = message.mentions.users.first() || message.author
   
-  let seviye = await db.fetch(`puancik_${user.id + message.guild.id}`)
+  let para = await db.fetch(`paracık_${user.id}`)
+  if (!para) para = '0'
+  
+  let seviye = await db.fetch(`seviye_${user.id + message.guild.id}`)
   if (!seviye) seviye = '0'
   
   let syazı;
@@ -20,70 +27,61 @@ exports.run = async(client, message, args) => {
   if (seviye == '7' || seviye == '8') syazı = 'Uzman'
   if (seviye > '8') syazı = 'Profesyonel'
   
-  let rutbe = await db.fetch(`elmasüye_${user.id}`)
-  let saygınlık = await db.fetch(`profil_${user.id}.saygınlık`)
-  let biyografi = await db.fetch(`profil_${user.id}.biyografi`)
+  const canvas = Canvas.createCanvas(300, 287);
+    const ctx = canvas.getContext('2d');
   
-  const canvas = Canvas.createCanvas(300, 287); // yeni güncelleme iyi oldu aw
-	const ctx = canvas.getContext('2d');
-  
-  const background = await Canvas.loadImage('https://cdn.discordapp.com/attachments/611989193639591990/615547465591947264/anlox.jpg');
+  const background = await Canvas.loadImage('https://cdn.discordapp.com/attachments/541293085036904470/541710383317123097/FrezzyProfil.png');
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
   
   ctx.strokeStyle = '#74037b';
-	ctx.strokeRect(0, 0, canvas.width, canvas.height);
-  
-  /*ctx.fillStyle = `#ffffff`;
-	ctx.font = `25px "Warsaw"`;
-	ctx.textAlign = "left";
-	ctx.fillText(`${user.username}`, 190, 130);*/
+    ctx.strokeRect(0, 0, canvas.width, canvas.height);
   
   ctx.fillStyle = `#ffffff`;
-	ctx.font = `15px "Warsaw"`;
-	ctx.textAlign = "left";
-	ctx.fillText(`${saygınlık || "0"}`, 210, 185);
+    ctx.font = `25px "Warsaw"`;
+    ctx.textAlign = "left";
+    ctx.fillText(`${user.username}`, 140, 110);
   
   ctx.fillStyle = `#ffffff`;
-	ctx.font = `15px "Warsaw"`;
-	ctx.textAlign = "left";
-	ctx.fillText(`${syazı}`, 210, 218);
+    ctx.font = `25px "Warsaw"`;
+    ctx.textAlign = "left";
+    ctx.fillText(`${para}`, 195, 193);
   
   ctx.fillStyle = `#ffffff`;
-	ctx.font = `15px "Warsaw"`;
-	ctx.textAlign = "left";
-	ctx.fillText(`${rutbe || "Kullanıcı"}`, 207, 247);
+    ctx.font = `25px "Warsaw"`;
+    ctx.textAlign = "left";
+    ctx.fillText(`${syazı}`, 200, 217);
   
   ctx.fillStyle = `#ffffff`;
-	ctx.font = `15px "Warsaw"`;
-	ctx.textAlign = "left";
-	ctx.fillText(`${biyografi || "?"}`, 77, 265);
+    ctx.font = `25px "Warsaw"`;
+    ctx.textAlign = "left";
+    ctx.fillText(`${seviye}`, 207, 238);
   
   let avatarURL = user.avatarURL || user.defaultAvatarURL
   const { body } = await request.get(avatarURL);
-	const avatar = await Canvas.loadImage(body);
+    const avatar = await Canvas.loadImage(body);
   
   ctx.beginPath();
-	ctx.lineWidth = 8;
+    ctx.lineWidth = 8;
   ctx.fill()
-	ctx.lineWidth = 8;
-	ctx.arc(20 + 55, 55 + 55, 55, 0, 2 * Math.PI, false);
-	ctx.clip();
-	ctx.drawImage(avatar, 20, 55, 110, 110);
+    ctx.lineWidth = 8;
+    ctx.arc(20 + 55, 55 + 55, 55, 0, 2 * Math.PI, false);
+    ctx.clip();
+    ctx.drawImage(avatar, 20, 55, 110, 110);
   
-  const attachment = new Discord.Attachment(canvas.toBuffer(), 'Avcı_Profil.png');
-  message.channel.send(`:notepad_spiral: ${user} adlı Kullanıcının Profil Bilgisi`, attachment)
+  const attachment = new Discord.Attachment(canvas.toBuffer(), 'FrezzyProfil.png');
+  message.channel.send(`${user} işte **paran!**`, attachment)
 }
 
 exports.conf = {
-  enabled: false,
+  enabled: true,
   guildOnly: false,
   aliases: [],
-  permLvl: 0,
-  kategori: 'Profil'
+  permLevel: 0,
+  kategori: "ekonomi"
 };
 
 exports.help = {
   name: "profil",
-  description: "Profil bilgilerinizi görüntülersiniz.",
-  usage: "profil"
+  description: "",
+  usage: ""
 };

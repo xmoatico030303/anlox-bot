@@ -13,7 +13,7 @@ exports.run = async(client, message, args) => {
 
   if (ms(sure) < 60000) return message.channel.send('Anonslar en az 5 dk olur!') 
   
-  message.channel.send(`Artık ${ms(ms(sure))} aralığı ile ${kanal} adlı kanala, belirtilen mesaj **gönderilecek!**`)
+  message.channel.send(`Artık ${sure} aralığı ile ${kanal} adlı kanala, belirtilen mesaj **gönderilecek!**`)
   
   await db.set(`anonsk_${message.guild.id}_${kanal.id}`, kanal.id)
   await db.set(`anonss_${message.guild.id}_${kanal.id}`, ms(sure))
