@@ -39,7 +39,7 @@ exports.run = async (client, message, args) => {
 exports.conf = {
 aliases : ['i'],
 permLvl : 0,
-kategori : `Bot`
+kategori : `kullanıcı`
 }
 exports.help = {
 name : 'istatistik',
