@@ -1,20 +1,22 @@
-sconst Discord = require("discord.js");
+const Discord = require("discord.js");
 const moment = require("moment");
 const m = require("moment-duration-format");
 const os = require('os');
+const client = new Discord.Client();
 const cpuStat = require("cpu-stat");
 const db = require('quick.db');
 
 exports.run = async (client, message, args) => {
   let gbs = await db.fetch(`geribildirim_${client.user.id}`)
   let surum = await db.fetch(`activity_${client.user.id}`)
+  const dikkat = client.emojis.get('616361735770865672');
   
   const duration = moment.duration(client.uptime).format(" D [gün], H [saat], m [dakika], s [saniye]");
   
   const embed = new Discord.RichEmbed()
   .setColor(client.ayarlar.renk)
   .setAuthor(`${client.user.username} - İstatistik`, `https://cdn.discordapp.com/emojis/604040658239356929.png?v=1`)
-  .addField(` **Geliştirici Ekibi :**`, `**Ekip Lideri : <@${client.ayarlar.sahip}>`, true)
+  .addField(`Geliştirici Ekibi :`, ` ${dikkat} Ekip Lideri : <@${client.ayarlar.sahip}>`, true)
   .addField(` **Ram Kullanımı:**`, `\`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB\``,true)
   .addField(` **Çalışma Süresi :**`, `\`${duration}\``, true)
   .addField(` **Kullanıcı Sayısı :**`, `\`${client.guilds.reduce((a, b) => a + b.memberCount, 0).toLocaleString()}\``, true)
