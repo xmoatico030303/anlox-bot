@@ -41,10 +41,10 @@ if (sp == null) sps = `${çarpı} ${p}spam-engel`
 if (sp == 'acik') sps = `${tik}`
 if (sp == 'kapali') sps = `${çarpı} ${p}spam-engel`
 //Otorol
-let otorol = await db.fetch(`otorol_{message.guild.id}`)
+let rol = await db.fetch(`otorol_${message.guild.id}`)
 let ot;
-if (otorol == null) ot = `${çarpı} ${p}otorol`
-else ot = `<@&${otorol}>`
+if (rol == null) ot = `${çarpı} ${p}otorol`
+else ot = `<@&${rol}>`
 //Log Kanalı
 let mod = await db.fetch(`modlogK_${message.guild.id}`)
 let modl;
@@ -130,7 +130,7 @@ const ayarlar = new Discord.RichEmbed()
 .addField('Selam Filtre', slm,true)
 .addField('Seviye Mesaj', sm, true)
 .addField('Seviye Mesaj Tipi', smt, true)
-.addField('Otorol', otorol, true)
+.addField('Otorol', rol, true)
 .addField('Sayaç', ss, true)
 .addField('Tag', tg, true)
 .addField('Sayaç Kanalı', sk, true)
