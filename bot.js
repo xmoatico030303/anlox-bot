@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+sconst Discord = require('discord.js');
 const client = new Discord.Client();
 const ayarlar = require('./ayarlar.json');
 const chalk = require('chalk');
@@ -1151,7 +1151,7 @@ client.on("guildMemberAdd", async member => {
   let rol = await db.fetch(`orol_${member.guild.id}`)
   let kanal = await db.fetch(`orolk_${member.guild.id}`)
   
-  member.guild.channels.get(kanal).send(`${member} adlı kullanıcıya ${rol.name} isimli rol verildi!`)
+  member.guild.channels.get(kanal).send(`${member} adlı kullanıcıya ${member.guild.roles.get(rol).name} isimli rol verildi!`)
   
   member.addRole(rol)
 })
