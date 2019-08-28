@@ -1,3 +1,5 @@
+
+
 const Discord = require("discord.js")
 const db = require("quick.db");
 const Canvas = require('canvas')
@@ -10,7 +12,6 @@ const request = require('node-superfetch');
 //Canvas.registerFont('./warsawgothicext.otf', { family: 'Warsaw' })
 
 exports.run = async(client, message, args) => {
-  if (!db.has(`para_${message.guild.id}`)) return message.channel.send('Bu sunucuda **para sistemi** açık olmadığından, profilinize **bakamazsınız!**')
   
   let user = message.mentions.users.first() || message.author
   
@@ -85,3 +86,4 @@ exports.help = {
   description: "",
   usage: ""
 };
+
