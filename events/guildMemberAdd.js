@@ -1,6 +1,8 @@
 const Discord = require("discord.js")
 const db = require("quick.db");
+const client = new Discord.Client();
 const Canvas = require('canvas')
+let giriss = client.emojis.get("616075723681038336")
     , Image = Canvas.Image
     , Font = Canvas.Font
     , path = require('path');
@@ -9,7 +11,7 @@ const request = require('node-superfetch');
 
 module.exports = async member => {
     var randomMsg = [
-                    "Kimler Gelmiş Hoşgeldin.",      
+                    `${giriss} Kimler Gelmiş Hoşgeldin`,      
                     ];
     var randomMsg_integer = randomMsg[Math.floor((Math.random() * randomMsg.length))]
 
