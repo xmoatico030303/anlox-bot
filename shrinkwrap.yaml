@@ -4,6 +4,7 @@ dependencies:
   chalk: 2.4.2
   common-tags: 1.8.0
   cowsay: 1.4.0
+  cpu-stat: 2.0.1
   croxy-api: 1.2.1
   crypto: 1.0.1
   dblapi.js: 2.3.0
@@ -808,6 +809,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-rdg5k5PsHFVJheO/pmE3aDg2rUDDTfPJau6yYkZYlHFktUz+UxbE+IgnUAEyyCyv4noL5ltxXD0gZzmHPCy/9g==
+  /cpu-stat/2.0.1:
+    dev: false
+    resolution:
+      integrity: sha1-UB6NbdLUTO9dhCk5w40YIsB4/Kw=
   /croxy-api/1.2.1:
     dev: false
     resolution:
@@ -3220,6 +3225,7 @@ specifiers:
   chalk: ^2.4.2
   common-tags: ^1.8.0
   cowsay: ^1.4.0
+  cpu-stat: ^2.0.1
   croxy-api: ^1.2.1
   crypto: ^1.0.1
   dblapi.js: ^2.3.0

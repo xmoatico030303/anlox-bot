@@ -52,7 +52,8 @@
     "weather-js": "^2.0.0",
     "prompt": "^1.0.0",
     "snekfetch": "^4.0.4",
-    "quick.db": "^7.0.0-b22"
+    "quick.db": "^7.0.0-b22",
+    "cpu-stat": "^2.0.1"
   },
   "engines": {
     "node": "8.4.0"
