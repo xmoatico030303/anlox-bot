@@ -31,9 +31,9 @@ exports.run = async (client, message, args) => {
   .addField(`**Discord.JS Sürüm**`, `\`v ${Discord.version}\``, true)
   .addField(`${ping} $**Ping**`, `\`${client.ping} ms\``, true)
   .addField(`<:power:616368319242698782> **Komut Sayısı**`, `\`${client.commands.size+10}\``, true)
-  .addField(`**Güncellemeler Hakkında :**`, `**Son Güncelleme : ${surum || "beta - 0.0.1"}** - **Geri Bildirim Sayısı : ${gbs || "0"}**`, true)
+  .addField(`<:guncelleme:616369422218559504> **Güncellemeler Hakkında :**`, `**Son Güncelleme : ${surum || "beta - 0.0.1"}** - **Geri Bildirim Sayısı : ${gbs || "0"}**`, true)
   .addField(`**Botun yapımında kullanılan modüller**`, `\`\`\`diff\n- ${Object.keys(require('../package.json').dependencies).map(p => p).join(', ')} -\`\`\``, true)
-  .addField(`**İşlemci**`, `\`\`\`diff\n+ ${os.cpus().map(i => `${i.model}`)[0]} +\`\`\``, true)
+  .addField(`<:vds:616363338946838567> **İşlemci**`, `\`\`\`diff\n+ ${os.cpus().map(i => `${i.model}`)[0]} +\`\`\``, true)
   message.channel.send(embed)
 }
 exports.conf = {
