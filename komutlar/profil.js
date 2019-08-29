@@ -32,7 +32,7 @@ exports.run = async(client, message, args) => {
   const canvas = Canvas.createCanvas(300, 287);
     const ctx = canvas.getContext('2d');
   
-  const background = await Canvas.loadImage('https://cdn.discordapp.com/attachments/611989193639591990/615547465591947264/anlox.jpg');
+  const background = await Canvas.loadImage('https://cdn.discordapp.com/attachments/564838583593205761/616445372709208076/FrezzyProfil.jpg');
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
   
   ctx.strokeStyle = '#74037b';
