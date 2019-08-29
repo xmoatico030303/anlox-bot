@@ -45,17 +45,17 @@ exports.run = async(client, message, args) => {
   ctx.fillStyle = `#ffffff`;
     ctx.font = `25px "Warsaw"`;
     ctx.textAlign = "left";
-    ctx.fillText(`${para}`, 195, 193);
+    ctx.fillText(`${para}`, 195, 200);
   
   ctx.fillStyle = `#ffffff`;
     ctx.font = `25px "Warsaw"`;
     ctx.textAlign = "left";
-    ctx.fillText(`${syazı}`, 200, 217);
+    ctx.fillText(`${syazı}`, 200, 200);
   
   ctx.fillStyle = `#ffffff`;
     ctx.font = `25px "Warsaw"`;
     ctx.textAlign = "left";
-    ctx.fillText(`${seviye}`, 207, 238);
+    ctx.fillText(`${seviye}`, 207, 220);
   
   let avatarURL = user.avatarURL || user.defaultAvatarURL
   const { body } = await request.get(avatarURL);
