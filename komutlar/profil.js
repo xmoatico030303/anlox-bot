@@ -14,6 +14,7 @@ const request = require('node-superfetch');
 exports.run = async(client, message, args) => {
   
   let user = message.mentions.users.first() || message.author
+  let saygınlık = await db.fetch(`profil_${user.id}.saygınlık`)
   
   let para = await db.fetch(`paracık_${user.id}`)
   if (!para) para = '0'
@@ -42,18 +43,18 @@ exports.run = async(client, message, args) => {
     ctx.textAlign = "left";
     ctx.fillText(`${user.username}`, 140, 110);
   
-  ctx.fillStyle = `#ffffff`;
-    ctx.font = `25px "Warsaw"`;
-    ctx.textAlign = "left";
-    ctx.fillText(`${para}`, 195, 200);
+   ctx.fillStyle = `#ffffff`;
+	ctx.font = `15px "Warsaw"`;
+	ctx.textAlign = "left";
+	ctx.fillText(`${saygınlık || "0"}`, 210, 185);
   
   ctx.fillStyle = `#ffffff`;
-    ctx.font = `25px "Warsaw"`;
+    ctx.font = `15px "Warsaw"`;
     ctx.textAlign = "left";
-    ctx.fillText(`${syazı}`, 200, 200);
+    ctx.fillText(`${syazı}`, 207, 250);
   
   ctx.fillStyle = `#ffffff`;
-    ctx.font = `25px "Warsaw"`;
+    ctx.font = `15px "Warsaw"`;
     ctx.textAlign = "left";
     ctx.fillText(`${seviye}`, 207, 220);
   
