@@ -3,7 +3,7 @@ var ayarlar = require('../ayarlar.json');
 const db = require('quick.db');
 exports.run = async (client, message, args, func) => {
   
-  if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`<:CARRno:524246262191751168> Bu komutu kullanabilmek için "\`Yönetici\`" yetkisine sahip olmalısın.`);
+  if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(` Bu komutu kullanabilmek için "\`Yönetici\`" yetkisine sahip olmalısın.`);
   
   let prefix = await db.fetch(`prefix_${message.guild.id}`);
     if (prefix == null) prefix = '/'
@@ -12,9 +12,9 @@ exports.run = async (client, message, args, func) => {
   
   
   if (!args[0])
-    return message.channel.send(`<:CARRno:524246262191751168> Bir prefix girmelisin.`)
+    return message.channel.send(` Bir prefix girmelisin.`)
   db.set(`prefix_${message.guild.id}`, args[0])
-    message.channel.send(`<:CARRyes:524245926358024193> Prefix başarıyla \`${args[0]}\` olarak ayarlandı.`)
+    message.channel.send(`Prefix başarıyla \`${args[0]}\` olarak ayarlandı.`)
   
 };
 

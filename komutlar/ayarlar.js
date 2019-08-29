@@ -15,13 +15,13 @@ exports.run = async (client, message, args) => {
   .setThumbnail(message.guild.iconURL)
   .addField(`Prefix`, `${prefix}`, true)
   .addField(`Log Kanalı`, db.has(`logK_${message.guild.id}`) ? `${ message.guild.channels.get(db.fetch(`logK_${message.guild.id}`)).name}`: ` Ayarlanmamış`, true)
-  .addField(`Giriş Çıkış Kanalı`, db.has(`gc_${message.guild.id}`) ? `${ message.guild.channels.get(db.fetch(`gc_${message.guild.id}`)).name}`: ` Ayarlanmamış`, true)
+  .addField(`Giriş Çıkış Kanalı`, db.has(`gcc_${message.guild.id}`) ? `${ message.guild.channels.get(db.fetch(`gcc_${message.guild.id}`)).name}`: ` Ayarlanmamış`, true)
   .addField(`Sayaç Kanalı`, db.has(`sk_${message.guild.id}`) ? `${ message.guild.channels.get(db.fetch(`sk_${message.guild.id}`)).name}`: ` Ayarlanmamış`, true)
   .addField(`Sayaç`, db.has(`s_${message.guild.id}`) ? (db.fetch(`s_${message.guild.id}`)):` Ayarlanmamış`, true)
   .addField(`Oto Rol Kanalı`, db.has(`orolk_${message.guild.id}`) ? `${ message.guild.channels.get(db.fetch(`orolk_${message.guild.id}`)).name}`: ` Ayarlanmamış`, true)
   .addField(`Oto Rol`, db.has(`orol_${message.guild.id}`) ? `${ message.guild.roles.get(db.fetch(`orol_${message.guild.id}`)).name}`: ` Ayarlanmamış`, true)
-  .addField(`Giriş Mesajı`, db.has(`girisM_${message.guild.id}`) ? db.fetch(`girisM_${message.guild.id}`).replace("{kullanıcı}", "`{kullanıcı}`").replace("{sunucu}", "`{sunucu}`").replace("{kişi-sayısı}", "`{kişi-sayısı}`"): `Varsayılan`, true)
-  .addField(`Çıkış Mesajı`, db.has(`cikisM_${message.guild.id}`) ? db.fetch(`cikisM_${message.guild.id}`).replace("{kullanıcı}", "`{kullanıcı}`").replace("{sunucu}", "`{sunucu}`").replace("{kişi-sayısı}", "`{kişi-sayısı}`"): `Varsayılan`, true)
+  .addField(`Giriş Mesajı`, db.has(`ozelhosgeldin_${message.guild.id}`) ? db.fetch(`ozelhosgeldin_${message.guild.id}`).replace("-kullanıcı", "`-kullanıcı-`").replace("-sunucu-", "`-sunucu-`").replace("{kişi-sayısı}", "`{kişi-sayısı}`"): `Varsayılan`, true)
+  .addField(`Çıkış Mesajı`, db.has(`ozelgorusuruz_${message.guild.id}`) ? db.fetch(`ozelgorusuruz_${message.guild.id}`).replace("-kullanıcı-", "`-kullanıcı-`").replace("-sunucu-", "`{sunucu}`").replace("{kişi-sayısı}", "`{kişi-sayısı}`"): `Varsayılan`, true)
   message.channel.send(ayarlarr);
 };
 
