@@ -18,7 +18,7 @@
     "node-opus": "^0.3.2",
     "chalk": "^2.4.2",
     "fs": "^0.0.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ms": "^2.1.2",
     "parse-ms": "^2.0.0",
     "moment-duration-format": "^2.2.2",
