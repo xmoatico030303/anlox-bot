@@ -31,7 +31,7 @@
     "croxy-api": "^1.2.1",
     "node-superfetch": "^0.1.9",
     "lowdb": "^1.0.0",
-    "moment-timezone": "^0.5.26",
+    "moment-timezone": "^0.5.35",
     "superagent": "^5.1.0",
     "qrcode": "^1.4.0",
     "common-tags": "^1.8.0",
