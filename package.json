@@ -10,7 +10,7 @@
     "start": "node bot.js"
   },
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "discord.js": "^11.5.1",
     "ffmpeg": "^0.0.4",
     "dblapi.js": "^2.3.0",
